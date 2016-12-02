@@ -28,7 +28,8 @@ module MediaTwitterProfile
     self.data.merge!({
       title: self.data['name'],
       picture: self.data[:pictures][:original],
-      published_at: self.data['created_at']
+      published_at: self.data['created_at'],
+      collections: { timeline: {} }
     })
   end
   

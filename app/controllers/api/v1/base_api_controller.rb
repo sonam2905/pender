@@ -16,8 +16,8 @@ module Api
       def authenticate_from_token!
         header = CONFIG['authorization_header'] || 'X-Token'
         token = request.headers[header]
-        key = ApiKey.where(access_token: token).where('expire_at > ?', Time.now).exists?
-        (render_unauthorized and return false) unless key
+        @key = ApiKey.where(access_token: token).where('expire_at > ?', Time.now).last
+        (render_unauthorized and return false) if @key.nil?
       end
 
       def verify_payload!
@@ -74,9 +74,9 @@ module Api
         render_error 'Unauthorized', 'UNAUTHORIZED', 401
       end
 
-      # def render_unknown_error
-      #   render_error 'Unknown error', 'UNKNOWN'
-      # end
+      def render_unknown_error
+        render_error 'Unknown error', 'UNKNOWN'
+      end
 
       # def render_invalid
       #   render_error 'Invalid value', 'INVALID_VALUE'
@@ -86,9 +86,9 @@ module Api
         render_error 'Parameters missing', 'MISSING_PARAMETERS'
       end
 
-      # def render_not_found
-      #   render_error 'Id not found', 'ID_NOT_FOUND', 404
-      # end
+      def render_not_found
+        render_error 'Not found', 'ID_NOT_FOUND', 404
+      end
 
       # def render_not_implemented
       #   render json: { success: true, message: 'NOT_IMPLEMENTED' }, status: 200

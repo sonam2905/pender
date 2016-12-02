@@ -7,6 +7,8 @@ class ApiKey < ActiveRecord::Base
   
   attr_accessible :application
 
+  has_many :subscriptions
+
   # Reimplement this method in your application
   def self.applications
     [nil]

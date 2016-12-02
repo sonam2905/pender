@@ -6,6 +6,10 @@
     {
       "path": "api/v1/medias.{format}",
       "description": "Medias"
+    },
+    {
+      "path": "api/v1/subscriptions.{format}",
+      "description": "Subscriptions"
     }
   ],
   "info": {

@@ -1,0 +1,101 @@
+{
+  "apiVersion": "1.0",
+  "swaggerVersion": "1.2",
+  "basePath": "/",
+  "resourcePath": "subscriptions",
+  "apis": [
+    {
+      "path": "api/subscriptions",
+      "operations": [
+        {
+          "summary": "Subscribe to a collection",
+          "notes": "Subscribe to a collection",
+          "parameters": [
+            {
+              "paramType": "query",
+              "name": "url",
+              "type": "string",
+              "description": "URL that owns the collection",
+              "required": true
+            },
+            {
+              "paramType": "query",
+              "name": "collection",
+              "type": "string",
+              "description": "Collection name",
+              "required": true
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 200,
+              "responseModel": null,
+              "message": "Subscribed successfully"
+            },
+            {
+              "code": 400,
+              "responseModel": null,
+              "message": "Parameters missing"
+            },
+            {
+              "code": 401,
+              "responseModel": null,
+              "message": "Access denied"
+            }
+          ],
+          "method": "post",
+          "nickname": "Api::V1::Subscriptions#create"
+        }
+      ]
+    },
+    {
+      "path": "api/subscriptions/{id}",
+      "operations": [
+        {
+          "summary": "Unsubscribe from a collection",
+          "notes": "Unsubscribe from a collection",
+          "parameters": [
+            {
+              "paramType": "query",
+              "name": "url",
+              "type": "string",
+              "description": "URL that owns the collection",
+              "required": true
+            },
+            {
+              "paramType": "query",
+              "name": "collection",
+              "type": "string",
+              "description": "Collection name",
+              "required": true
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 200,
+              "responseModel": null,
+              "message": "Unsubscribed successfully"
+            },
+            {
+              "code": 400,
+              "responseModel": null,
+              "message": "Parameters missing"
+            },
+            {
+              "code": 401,
+              "responseModel": null,
+              "message": "Access denied"
+            },
+            {
+              "code": 404,
+              "responseModel": null,
+              "message": "Subscription not found"
+            }
+          ],
+          "method": "delete",
+          "nickname": "Api::V1::Subscriptions#destroy"
+        }
+      ]
+    }
+  ]
+}

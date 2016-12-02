@@ -45,7 +45,7 @@ class Media
   end
 
   def minimal_data
-    data = {}
+    data = { collections: {} }
     %w(published_at username title description picture author_url).each do |field|
       data[field] = ''
     end
