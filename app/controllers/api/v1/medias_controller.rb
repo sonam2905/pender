@@ -7,6 +7,8 @@ module Api
       include MediasDoc
       include MediasHelper
 
+      include ActionController::Live
+
       skip_before_filter :authenticate_from_token!, if: proc { request.format.html? || request.format.js? || request.format.oembed? }
       after_action :allow_iframe, only: :index
 
@@ -22,6 +24,19 @@ module Api
           format.js     { render_as_js     }
           format.json   { render_as_json   }
           format.oembed { render_as_oembed }
+        end
+      end
+
+      def stream
+        begin
+          response.headers['Content-Type'] = 'text/event-stream'
+          @key.stream do |item|
+            response.stream.write(item)
+          end
+        rescue Exception => e
+          Rails.logger.info "Some error happened, closing connection: #{e.message}"
+          response.stream.close
+          raise e
         end
       end
 

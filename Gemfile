@@ -16,7 +16,6 @@ gem 'codeclimate-test-reporter', group: :test, require: nil
 gem 'awesome_print', require: false, group: :development
 gem 'gem-licenses'
 gem 'auto_localize', '0.1'
-gem 'thin'
 gem 'protected_attributes'
 gem 'responders'
 gem 'yt', '~> 0.25.5'
@@ -30,3 +29,4 @@ gem 'postrank-uri'
 gem 'retryable'
 gem 'puma'
 gem "smartshot"
+gem "tweetstream"

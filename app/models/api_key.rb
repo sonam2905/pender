@@ -6,6 +6,7 @@ class ApiKey < ActiveRecord::Base
   before_validation :calculate_expiration_date, on: :create
   
   attr_accessible :application
+  attr_accessor :stream_item_id
 
   has_many :subscriptions
 
@@ -15,6 +16,14 @@ class ApiKey < ActiveRecord::Base
   end
   
   validates :application, inclusion: { in: proc { ApiKey.applications } }
+
+  def stream
+    self.subscriptions.each do |subscription|
+      subscription.stream do |item|
+        yield(item)
+      end
+    end
+  end
 
   private
 

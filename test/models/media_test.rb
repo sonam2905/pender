@@ -1009,5 +1009,4 @@ class MediaTest < ActiveSupport::TestCase
     assert_equal 'https://www.linkedin.com/in/aleksandrejashia', d['author_url']
     assert_equal 'https://speakbridge.io/medias/embed/milestone/M29/1bfdfb37e84960622cb9e94a66b7f6b4ab079591.png', d['picture']
   end
-
 end
