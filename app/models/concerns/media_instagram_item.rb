@@ -7,7 +7,7 @@ module MediaInstagramItem
     Media.declare('instagram_item', [INSTAGRAM_URL])
   end
 
-  def data_from_instagram_item
+  def data_from_instagram_item(item = nil)
     id = self.url.match(INSTAGRAM_URL)[2]
 
     handle_exceptions(RuntimeError) do

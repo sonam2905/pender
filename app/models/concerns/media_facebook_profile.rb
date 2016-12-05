@@ -61,7 +61,7 @@ module MediaFacebookProfile
     data
   end
 
-  def data_from_facebook_profile
+  def data_from_facebook_profile(item = nil)
     handle_exceptions(Koala::Facebook::ClientError, :fb_error_message, :fb_error_code) do
       self.data.merge! self.get_data_from_facebook
     end

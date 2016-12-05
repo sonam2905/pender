@@ -5,7 +5,7 @@ module MediaBridgeItem
     Media.declare('bridge_item', [/^https?:\/\/(www\.)?speakbridge.io\/medias\/embed\/(?<project>[^\/]+)\/[^\/]+\/(?<id>[^\/]+)$/])
   end
 
-  def data_from_bridge_item
+  def data_from_bridge_item(item = nil)
     handle_exceptions(RuntimeError) do
       self.parse_from_bridge_html
       self.data.merge!({

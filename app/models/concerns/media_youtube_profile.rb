@@ -18,7 +18,7 @@ module MediaYoutubeProfile
     )
   end
 
-  def data_from_youtube_profile
+  def data_from_youtube_profile(item = nil)
     channel = Yt::Channel.new url: self.url
 
     self.youtube_profile_direct_attributes.each do |attr|

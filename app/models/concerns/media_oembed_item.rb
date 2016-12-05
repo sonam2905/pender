@@ -19,7 +19,7 @@ module MediaOembedItem
     })
   end
 
-  def data_from_oembed_item
+  def data_from_oembed_item(item = nil)
     oembed_url = self.get_oembed_url
     response = self.oembed_get_data_from_url(oembed_url)
     if !response.nil? && response.code == '200'

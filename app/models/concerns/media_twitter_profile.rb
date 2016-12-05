@@ -7,16 +7,6 @@ module MediaTwitterProfile
     Media.declare('twitter_profile', [/^https?:\/\/(www\.)?twitter\.com\/([^\/]+)$/])
   end
 
-  def stream_from_twitter_profile(collection)
-    if collection == 'timeline'
-      TweetStream::Client.new.follow(self.as_json['id'].to_s) do |status|
-        tweet = Media.new(url: "#{self.url}/status/#{status.id}")
-        tweet.data_from_twitter_item(status)
-        yield({ collection: 'timeline', data: tweet.as_json }.to_json)
-      end
-    end
-  end
-
   def twitter_client
     Twitter::REST::Client.new do |config|
       config.consumer_key        = CONFIG['twitter_consumer_key']
@@ -26,7 +16,7 @@ module MediaTwitterProfile
     end
   end
 
-  def data_from_twitter_profile
+  def data_from_twitter_profile(item = nil)
     username = self.data[:username] = self.get_twitter_username
 
     handle_twitter_exceptions do

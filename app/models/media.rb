@@ -20,9 +20,9 @@ class Media
     TYPES[type] = patterns
   end
 
-  def as_json(options = {})
+  def as_json(options = {}, data = nil)
     Rails.cache.fetch(self.get_id, options) do
-      self.parse
+      self.parse(data)
       self.data.merge(required_fields).with_indifferent_access
     end
   end
@@ -98,14 +98,14 @@ class Media
     Digest::MD5.hexdigest(self.url)
   end
 
-  def parse
+  def parse(item = nil)
     self.data = minimal_data
     parsed = false
     TYPES.each do |type, patterns|
       patterns.each do |pattern|
         unless pattern.match(self.url).nil?
           self.provider, self.type = type.split('_')
-          self.send("data_from_#{type}")
+          self.send("data_from_#{type}", item)
           parsed = true
           break
         end

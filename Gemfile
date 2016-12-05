@@ -30,3 +30,4 @@ gem 'retryable'
 gem 'puma'
 gem "smartshot"
 gem "tweetstream"
+gem 'redis'

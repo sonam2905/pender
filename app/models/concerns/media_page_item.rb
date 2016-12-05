@@ -5,7 +5,7 @@ module MediaPageItem
     Media.declare('page_item', [/^.*$/])
   end
 
-  def data_from_page_item
+  def data_from_page_item(item = nil)
     self.doc ||= self.get_html
     handle_exceptions(RuntimeError) do
       self.data = self.page_get_data_from_url

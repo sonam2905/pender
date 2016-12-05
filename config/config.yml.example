@@ -12,6 +12,9 @@ development: &default
   facebook_password:
   facebook_app_id:
   timeout: 5 # In seconds
+  redis_host:
+  redis_port:
+  redis_db:
   hosts:
     one.host:
       http_auth: username:password

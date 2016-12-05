@@ -36,7 +36,6 @@ module Api
         rescue Exception => e
           Rails.logger.info "Some error happened, closing connection: #{e.message}"
           response.stream.close
-          raise e
         end
       end
 

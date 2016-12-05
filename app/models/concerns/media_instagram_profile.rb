@@ -7,7 +7,7 @@ module MediaInstagramProfile
     Media.declare('instagram_profile', [INSTAGRAM_PROFILE_URL])
   end
 
-  def data_from_instagram_profile
+  def data_from_instagram_profile(item = nil)
     username = self.url.match(INSTAGRAM_PROFILE_URL)[2]
 
     handle_exceptions(RuntimeError) do

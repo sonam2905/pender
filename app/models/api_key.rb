@@ -18,11 +18,27 @@ class ApiKey < ActiveRecord::Base
   validates :application, inclusion: { in: proc { ApiKey.applications } }
 
   def stream
+    channels = {}
     self.subscriptions.each do |subscription|
-      subscription.stream do |item|
-        yield(item)
+      channel = "pender.subscription.#{subscription.id}"
+      channels[channel] = subscription
+    end
+
+    ticker = Thread.new { loop { sleep 5 } }
+    sender = Thread.new do
+      redis_client = Redis.new host: CONFIG['redis_host '], port: CONFIG['redis_port'], db: CONFIG['redis_db'], timeout: 2
+      redis_client.subscribe(channels.keys) do |on|
+        on.subscribe do |channel, subscriptions|
+          puts "Subscribed to #{channel} (#{subscriptions} subscriptions)"
+        end
+
+        on.message do |subscription, data|
+          yield({ collection: channels[subscription].collection, data: data }.to_json)
+        end
       end
     end
+    ticker.join
+    sender.join
   end
 
   private

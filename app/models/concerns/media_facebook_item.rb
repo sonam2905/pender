@@ -192,7 +192,7 @@ module MediaFacebookItem
   end
 
   # First method
-  def data_from_facebook_item
+  def data_from_facebook_item(item = nil)
     handle_exceptions(RuntimeError) do
       self.parse_facebook_uuid
       self.parse_from_facebook_html unless self.parse_from_facebook_api
