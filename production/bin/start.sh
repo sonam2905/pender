@@ -10,14 +10,4 @@ d=configurator/check/${DEPLOY_ENV}/${APP}/; for f in $(find $d -type f); do cp "
 
 echo "--- STARTUP COMPLETE ---"
 
-mkdir -p ${PWD}/tmp/pids
-puma="${PWD}/tmp/puma-${DEPLOY_ENV}.rb"
-cp config/puma.rb ${puma}
-cat << EOF >> ${puma}
-pidfile '${PWD}/tmp/pids/server-${DEPLOY_ENV}.pid'
-environment '${DEPLOY_ENV}'
-port ${SERVER_PORT} 
-workers 3 
-EOF
-
-bundle exec puma -C ${puma} -t 8:32
+#mkdir -p ${PWD}/tmp/pids
